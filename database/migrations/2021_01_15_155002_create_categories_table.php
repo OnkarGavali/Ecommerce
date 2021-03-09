@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('Category_name');
             $table->string('Category_description',500);
             $table->string('Category_image_url');
-            $table->string('Category_status')->default(0);
+            $table->string('Category_status')->default(1);
             $table->timestamps();
         });
     }

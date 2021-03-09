@@ -23,12 +23,17 @@
 @endif
 
 
-<table class="table table-bordered">
-  <tr>
-     <th>No</th>
-     <th>Name</th>
-     <th width="280px">Action</th>
-  </tr>
+<div class="col-md-12">
+    <h1 class="mt-4"></h1>
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th width="280px">Action</th>
+            </tr>
+        </thead>
+  
     @foreach ($roles as $key => $role)
     <tr>
         <td>{{ ++$i }}</td>
@@ -51,6 +56,5 @@
 
 {!! $roles->render() !!}
 
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+</div>
 @endsection

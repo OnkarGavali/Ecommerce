@@ -8,7 +8,7 @@
                 <h2>Sub Categories</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('subcategories.create') }}"> Create New Sub Category</a>
+                <a class="btn btn-primary" href="{{ route('lists.Category') }}"> Back</a>
             </div>
         </div>
     </div>
@@ -38,34 +38,21 @@
                 <td>{{ $subcategory->Subcategory_description }}</td>
                 <td>{{ $subcategory->Subcategory_category_id }}</td>
                 <td>
-                    @if($subcategory['Subcategory_status'] == 1)
+                    @if($subcategory->Subcategory_status == 1)
                         <label class="badge badge-success">{{ __('Active')}}</label>
                     @else
                         <label class="badge badge-danger">{{ __('Inactive')}}</label>
                     @endif
                 </td>
                 <td>
-                    <form action="{{ route('subcategories.destroy',$subcategory->Subcategory_id) }}" method="POST">
-                        <a class="btn btn-info" href="{{ route('subcategories.show',$subcategory->Subcategory_id) }}">Show</a>
-                
-                        <a class="btn btn-primary" href="{{ route('subcategories.edit',$subcategory->Subcategory_id) }}">Edit</a>
-
-
-                        @csrf
-                        @method('DELETE')
-                        @if($subcategory->Subcategory_status==1)
-                            <button type="submit" class="btn btn-danger">Inactive</button>
-                        @else
-                            <button type="submit" class="btn btn-success">Active</button>
-                        @endif
-                    </form>
+                    <a class="btn btn-primary" href="{{ route('lists.Product',['category'=>$category->Category_id,'subcategory'=>$subcategory->Subcategory_id]) }}">List</a>
                 </td>
             </tr>
             @endforeach
         </table>
     
 
-    {!! $subcategories->links() !!}
+
 
 </div>
 @endsection

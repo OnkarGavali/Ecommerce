@@ -19,7 +19,7 @@ class CreateSubCategoriesTable extends Migration
             $table->string('Subcategory_name');
             $table->string('Subcategory_description',500);
             $table->string('Subcategory_image_url');
-            $table->string('Subcategory_status')->default(0);
+            $table->string('Subcategory_status')->default(1);
             $table->timestamps();
         });
     }

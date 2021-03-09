@@ -14,16 +14,7 @@
 </div>
 
 
-@if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif
+
 
 
 
@@ -37,8 +28,38 @@
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="form-group">
+            <strong>Shop Name:</strong>
+            {!! Form::text('shop_name', null, array('placeholder' => 'Shop Name','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Mobile No.:</strong>
+            {!! Form::text('mobile_no', null, array('placeholder' => 'Mobile No.','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
             <strong>Email:</strong>
             {!! Form::text('email', null, array('placeholder' => 'Email','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>GST No.:</strong>
+            {!! Form::text('gst_no', null, array('placeholder' => 'GST No.','class' => 'form-control')) !!}
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+		        <div class="form-group">
+		            <strong>Shop Address:</strong>
+                     {!! Form::textarea('shop_address', null, array('placeholder' => 'Address','class' => 'form-control','style'=>'height:150px')) !!}
+		        </div>
+		    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+            <strong>Shop Pincode:</strong>
+            {!! Form::text('shop_pincode', null, array('placeholder' => 'Pincode','class' => 'form-control')) !!}
         </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -65,6 +86,4 @@
 </div>
 {!! Form::close() !!}
 
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
 @endsection

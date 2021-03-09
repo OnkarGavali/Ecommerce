@@ -14,19 +14,10 @@
     </div>
 
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    
 
 
-    <form action="{{ route('products.store') }}" method="POST">
+    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
     	@csrf
 
 
@@ -34,33 +25,33 @@
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Name:</strong>
-		            <input type="text" name="Product_name" class="form-control" placeholder="Name">
+		            <input type="text" name="Product_name" class="form-control" placeholder="Name" required>
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Description:</strong>
-		            <textarea class="form-control" style="height:150px" name="Product_description" placeholder="Description"></textarea>
+		            <textarea class="form-control" style="height:150px" name="Product_description" placeholder="Description" required></textarea>
 		        </div>
 		    </div>
 
 
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
-		            <strong>Size:</strong>
-		            <input type="text" name="Product_size" class="form-control" placeholder="Size">
+		            <strong>Dimension:</strong>
+		            <input type="text" name="Product_dimension" class="form-control" placeholder="Dimension" required>
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Color:</strong>
-		            <input type="text" name="Product_color" class="form-control" placeholder="Color">
+		            <input type="text" name="Product_color" class="form-control" placeholder="Color" required>
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
 		            <strong>Prize:</strong>
-		            <input type="text" name="Product_prize" class="form-control" placeholder="Prize">
+		            <input type="text" name="Product_prize" class="form-control" placeholder="Prize" required>
 		        </div>
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -68,7 +59,7 @@
                     <strong>Category Id:</strong>
                     <select name="Product_subcategory_id" class="form-control">
                         @foreach($subcategories as $subcategory)
-                        <option value="{{$subcategory->Subcategory_id}}">{{$subcategory->Subcategory_name}}</option>
+                        <option value="{{$subcategory->Subcategory_id}}" required>{{$subcategory->Subcategory_name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -76,7 +67,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 ">
                 <div class="form-group">
                     <strong>Image URL1:</strong>
-                    <input type="file" name="Product_image_url1" class="btn btn-link" >
+                    <input type="file" name="Product_image_url1" class="btn btn-link" required >
                 </div>
 		    </div>
              <div class="col-xs-12 col-sm-12 col-md-12 ">

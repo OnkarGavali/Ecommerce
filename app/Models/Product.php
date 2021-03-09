@@ -15,7 +15,7 @@ class Product extends Model
         'Product_image_url3',
         'Product_image_url4',
         'Product_image_url5',
-        'Product_size',
+        'Product_dimension',
         'Product_color',
         'Product_prize',
         'Product_status',

@@ -45,9 +45,15 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'shop_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles' => 'required',
+            'mobile_no' => 'required',
+            'gst_no' => 'required',
+            'shop_address'=> 'required',
+            'shop_pincode'=> 'required'
+
         ]);
     
         $input = $request->all();
@@ -128,8 +134,26 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        //User::find($id)->delete();
+        $user = User::find($id);
+        
+       // return $user->status;
+        if($user->status == 0)
+        {
+            $user->status = 1;
+            $user->save();
+           
+            return redirect()->route('users.index')->with('success', "User is Active now");
+        }
+        else if($user->status == 1)
+        {
+            $user->status = 0;
+            $user->save();
+            return redirect()->route('users.index')->with('success', "User is Inactive now");
+        }
+
+
+        //return redirect()->route('users.index')
+                        //->with('success','User deleted successfully');
     }
 }

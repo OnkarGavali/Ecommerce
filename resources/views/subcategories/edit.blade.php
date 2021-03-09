@@ -26,7 +26,7 @@
     @endif
 
 
-    <form action="{{ route('subcategories.update',$subcategory->Subcategory_id) }}" method="POST">
+    <form action="{{ route('subcategories.update',$subcategory->Subcategory_id) }}" method="POST" enctype="multipart/form-data">
     	@csrf
         @method('PUT')
 
@@ -46,8 +46,19 @@
 		    </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
 		        <div class="form-group">
+                    <strong>Category Id:</strong>
+                    <select name="Subcategory_category_id" class="form-control">
+                        @foreach($categories as $category)
+                        <option value="{{$category->Category_id}}">{{$category->Category_name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+		    </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+		        <div class="form-group">
 		            <strong>Image URL:</strong>
-		            <input type="text" name="Subcategory_image_url" value="{{ $subcategory->Subcategory_image_url }}" class="form-control" placeholder="URL">
+                    <img src="{{asset('/storage/files/'.$subcategory->Subcategory_image_url)}}" alt="Image" width="200"  />
+		            <input type="file" name="Subcategory_image_url" value="{{ $subcategory->Subcategory_image_url }}" class="btn btn-link" placeholder="URL">
 		        </div>
 		    </div>
 		    <div class="col-xs-12 col-sm-12 col-md-12 text-center">

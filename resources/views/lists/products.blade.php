@@ -8,15 +8,10 @@
                 <h2>Products</h2>
             </div>
             <div class="pull-right">
-                @can('product-create')
                 <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
-                @endcan
             </div>
         </div>
     </div>
-
-
-   
 
 
     <div class="col-md-12">
@@ -46,36 +41,18 @@
             <td>{{ $product->Product_prize }}</td>
             <td>{{ $product->Product_subcategory_id }}</td>
             <td>
-                @if($product['Product_status'] == 1)
+                @if($product->Product_status == 1)
                     <label class="badge badge-success">{{ __('Active')}}</label>
                 @else
                     <label class="badge badge-danger">{{ __('Inactive')}}</label>
                 @endif
             </td>
 	        <td>
-                <form action="{{ route('products.destroy',$product->Product_id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('products.show',$product->Product_id) }}">Show</a>
-                    @can('product-edit')
-                    <a class="btn btn-primary" href="{{ route('products.edit',$product->Product_id) }}">Edit</a>
-                    @endcan
-                    
-
-                    @csrf
-                    @method('DELETE')
-                    @can('product-delete')
-                        @if($product->Product_status==1)
-                            <button type="submit" class="btn btn-danger">Inactive</button>
-                        @else
-                            <button type="submit" class="btn btn-success">Active</button>
-                        @endif
-                    @endcan
-                </form>
+                
 	        </td>
 	    </tr>
 	    @endforeach
     </table>
 
-
-    {!! $products->links() !!}
 </div>
 @endsection

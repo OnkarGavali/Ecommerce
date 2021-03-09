@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\SubCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SubCategoryController extends Controller
 {
@@ -49,13 +50,12 @@ class SubCategoryController extends Controller
             'Subcategory_category_id' => 'required',
             'Subcategory_image_url' => 'required',
         ]);
-        
+
         if($request->hasfile('Subcategory_image_url'))
-         {
-                $name = $request->Subcategory_name.time().'.'.$request->Subcategory_image_url->extension();
-                $request->Subcategory_image_url->move(public_path().'/files/', $name);
-                
-         }
+        {
+            $name = $request->Subcategory_name.time().'.'.$request->Subcategory_image_url->extension();
+            $request->Subcategory_image_url->storeAs('files',$name,'public');        
+        }
       
         $varSubcategory = new SubCategory([
             'Subcategory_name' => $request->Subcategory_name,
@@ -77,6 +77,7 @@ class SubCategoryController extends Controller
      */
     public function show(SubCategory $subcategory)
     {
+        
         return view('subcategories.show',compact('subcategory'));
     }
     
@@ -88,27 +89,43 @@ class SubCategoryController extends Controller
      */
     public function edit(SubCategory $subcategory)
     {
-        return view('subcategories.edit',compact('subcategory'));
+        $categories = Category::all();
+        return view('subcategories.edit',compact('subcategory','categories'));
     }
     
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\SubCategory  $subcategory
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, SubCategory $subcategory)
     {
-         request()->validate([
+        request()->validate([
             'Subcategory_name' => 'required',
             'Subcategory_description' => 'required',
             'Subcategory_category_id' => 'required',
-            'Subcategory_image_url' => 'required',
         ]);
-    
-        $subcategory->update($request->all());
-    
+        
+        if($request->Subcategory_image_url)
+        {
+            $extension = $request->Subcategory_image_url->getClientOriginalExtension();
+            $name = $request->Subcategory_name.time().'.'.$extension;
+            if($subcategory->Subcategory_image_url)
+            {
+                    Storage::delete('/public/files/'.$subcategory->Subcategory_image_url);
+            }
+            $request->Subcategory_image_url->storeAs('files',$name,'public');
+        }
+        else
+        {
+            $name = $subcategory->Subcategory_image_url;
+        }
+        $data=$request->all();
+        $data['Subcategory_image_url']=$name;
+        $subcategory->update($data);
+
         return redirect()->route('subcategories.index')
                         ->with('success','SubCategory updated successfully');
     }
@@ -121,9 +138,21 @@ class SubCategoryController extends Controller
      */
     public function destroy(SubCategory $subcategory)
     {
-        $subcategory->delete();
-    
-        return redirect()->route('subcategories.index')
-                        ->with('success','SubCategory deleted successfully');
+        //$subcategory->delete();
+        if( $subcategory['Subcategory_status']=='0')
+        {
+            $subcategory['Subcategory_status']='1';
+            $subcategory->update();
+            return redirect()->route('subcategories.index')
+                        ->with('success','SubCategory is Active now');
+        }
+        else
+        {
+            $subcategory['Subcategory_status']='0';
+            $subcategory->update();
+            return redirect()->route('subcategories.index')
+                        ->with('success','SubCategory is Inactive now');
+        }
+        
     }
 }
