@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class DataController extends Controller
@@ -25,7 +26,7 @@ class DataController extends Controller
     {
         //return dd($category);
         $subcategories = DB::table('sub_categories')
-        ->where([['Subcategory_category_id', '=',$category->Category_id]])
+        ->where([['Subcategory_category_id', '=',$category->Category_id],['Subcategory_status', '=',1]])
         ->orderBy('Subcategory_id', 'desc')
         ->get()->toArray();
         $i=0;
@@ -36,10 +37,10 @@ class DataController extends Controller
     {
         //return dd($category);
         $products = DB::table('products')
-        ->where([['Product_subcategory_id', '=',$subcategory->Subcategory_category_id]])
+        ->where([['Product_subcategory_id', '=',$subcategory->Subcategory_id],['Product_status', '=',1]])
         ->orderBy('Product_id', 'desc')
         ->get()->toArray();
         $i=0;
-        return view('lists.products',compact('products','i'));
+        return view('lists.products',compact('products','i','category'));
     }
 }

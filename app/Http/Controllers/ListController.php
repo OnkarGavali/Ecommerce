@@ -28,11 +28,24 @@ class ListController extends Controller
     {
         //return dd($category);
         $subcategories = DB::table('subcategories')
-        ->where([['Subcategory_category_id', '=',$id]])
+        ->where([['Subcategory_category_id', '=',$category->$id],['Subcategory_status', '=',1]])
         ->orderBy('Subcategory_id', 'desc')
         ->get()->toArray();
         $i=0;
         return view('lists.sublist',compact('subcategories','i'));
+
+    }
+
+
+    public function prolist(Subcategory $subcategory)
+    {
+        //return dd($category);
+        $products = DB::table('products')
+        ->where([['Product_id', '=',$subcategory->$Subcategory_id]])
+        ->orderBy('Product_id', 'desc')
+        ->get()->toArray();
+        $i=0;
+        return view('lists.prolist',compact('products','i'));
 
     }
     /**

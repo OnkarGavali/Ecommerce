@@ -8,7 +8,8 @@
                 <h2>Products</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+            
+                <a class="btn btn-primary" href="{{ route('lists.SubCategory',$category->Category_id) }}"> Back</a>
             </div>
         </div>
     </div>
