@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\HomeController;
-
+use App\Http\Controllers\Api\LoginController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,11 +16,13 @@ use App\Http\Controllers\Api\HomeController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['auth:sanctum']], function() {
+
 
 });
 
 Route::get('home',[HomeController::class, 'HomePageCat']);
-Route::put('home/subcategory/{category}',[HomeController::class, 'HomePageSub']);
-Route::put('home/product/{subcategory}',[HomeController::class, 'HomePagePro']);
+Route::get('AllProducts',[HomeController::class, 'AllProducts']);
+Route::POST('home/subcategory',[HomeController::class, 'HomePageSub']);
+Route::POST('home/product',[HomeController::class, 'HomePagePro']);
+Route::POST('loginapi', [LoginController::class, 'login']);
