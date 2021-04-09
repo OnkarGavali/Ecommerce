@@ -15,6 +15,7 @@ class OrderedProducts extends Model
             'Ordered_product_cost',
             'Ordered_product_total_cost',
             'Ordered_product_order_status',
+            'Ordered_product_product_id'
     ];
     protected $primaryKey = 'Ordered_product_id';
 }

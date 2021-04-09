@@ -54,9 +54,11 @@ class HomeController extends Controller
         }
 
         $products = DB::table('products')
-        ->where('Product_status', '=', 1)
+        ->where([['Product_subcategory_id','=',$request->Product_subcategory_id],
+        ['Product_status', '=', 1]])
         ->orderBy('Product_id', 'desc')
         ->get()->toArray();
+
 
         return response()->json(['ProductList'=>$products,
         'code'=>200]);
@@ -64,11 +66,10 @@ class HomeController extends Controller
 
     public function AllProducts()
     {
-        $products = DB::table('products')
-        ->where([['Product_subcategory_id','=',$request->Product_subcategory_id],
-        ['Product_status', '=', 1]])
-        ->orderBy('Product_id', 'desc')
-        ->get()->toArray();
+      $products = DB::table('products')
+      ->where('Product_status', '=', 1)
+      ->orderBy('Product_id', 'desc')
+      ->get()->toArray();
 
         return response()->json(['AllProductList'=>$products,
         'code'=>200]);

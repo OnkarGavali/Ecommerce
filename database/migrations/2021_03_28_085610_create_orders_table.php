@@ -14,10 +14,10 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            
+
             $table->bigIncrements('Order_id');
             $table->string('Order_user_id');
-            $table->string('Order_user_mobile_no');
+            
             $table->string('Order_product_quantity');
             $table->string('Order_total_cost');
             $table->string('Order_status')->default(0);
@@ -36,12 +36,12 @@ class CreateOrdersTable extends Migration
     }
 }
 /*
-user id 
+user id
 user name address
 stauts 0=>  order 1=> accepte 2=> reject
 quantity
 prize
 total
 product id
-product stauts 
+product stauts
 */

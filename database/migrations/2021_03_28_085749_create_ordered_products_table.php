@@ -16,6 +16,7 @@ class CreateOrderedProductsTable extends Migration
         Schema::create('ordered_products', function (Blueprint $table) {
             $table->bigIncrements('Ordered_product_id');
             $table->string('Ordered_product_order_id');
+            $table->string('Ordered_product_product_id');
             $table->string('Ordered_product_quantity');
             $table->string('Ordered_product_cost');
             $table->string('Ordered_product_total_cost');

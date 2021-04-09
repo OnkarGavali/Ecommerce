@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\OrderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,3 +27,6 @@ Route::get('AllProducts',[HomeController::class, 'AllProducts']);
 Route::POST('home/subcategory',[HomeController::class, 'HomePageSub']);
 Route::POST('home/product',[HomeController::class, 'HomePagePro']);
 Route::POST('loginapi', [LoginController::class, 'login']);
+Route::POST('PlaceOrder',[OrderController::class, 'PlaceOrder']);
+Route::get('ClientAllOrders',[OrderController::class, 'ClientAllOrders']);
+Route::POST('OrderDeatils',[OrderController::class, 'OrderDeatils']);
