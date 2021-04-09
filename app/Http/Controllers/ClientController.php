@@ -1,11 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Category;
-use App\Models\SubCategory;
+
+
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 use DB;
-class ListController extends Controller
+use Hash;
+use Illuminate\Support\Arr;
+use App\Jobs\ActivateAccountjob; 
+
+class ClientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,38 +21,11 @@ class ListController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')
-        ->where([['Category_status', '=', 1]])
-        ->orderBy('Category_id', 'desc')
-        ->get()->toArray();
-        $i=0;
-        return view('lists.index',compact('categories','i'));       
+        $clients = User::doesntHave('roles')->get();
+        // return $clients;
+        return view("clients/index", compact("clients")); 
     }
 
-    public function sublist(Category $category)
-    {
-        //return dd($category);
-        $subcategories = DB::table('subcategories')
-        ->where([['Subcategory_category_id', '=',$category->$id],['Subcategory_status', '=',1]])
-        ->orderBy('Subcategory_id', 'desc')
-        ->get()->toArray();
-        $i=0;
-        return view('lists.sublist',compact('subcategories','i'));
-
-    }
-
-
-    public function prolist(Subcategory $subcategory)
-    {
-        //return dd($category);
-        $products = DB::table('products')
-        ->where([['Product_id', '=',$subcategory->$Subcategory_id]])
-        ->orderBy('Product_id', 'desc')
-        ->get()->toArray();
-        $i=0;
-        return view('lists.prolist',compact('products','i'));
-
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +33,7 @@ class ListController extends Controller
      */
     public function create()
     {
-        //
+        return view("AdminCreateUser"); 
     }
 
     /**
@@ -64,7 +44,26 @@ class ListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'shop_name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'mobile_no' => 'required',
+            'gst_no' => 'required',
+            'shop_address'=> 'required',
+            'shop_pincode'=> 'required'
+        ]); 
+            
+
+        $input = $request->all();
+        $input['password'] = Hash::make('123456');
+        $user = User::create($input);        
+        
+        $msg="Congratulations! You have been registered successfully on E-Commerce App!! CLick on activate the account click on Forgot Your Password button on Website";
+        $mail=$request->email;
+        $this->dispatch(new ActivateAccountjob($mail));
+
+        return back()->with('success','Registered successfully');
     }
 
     /**

@@ -151,9 +151,5 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('users.index')->with('success', "User is Inactive now");
         }
-
-
-        //return redirect()->route('users.index')
-                        //->with('success','User deleted successfully');
     }
 }
