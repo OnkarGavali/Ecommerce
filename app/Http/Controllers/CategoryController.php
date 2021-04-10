@@ -7,7 +7,7 @@ use App\Models\SubCategory;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 class CategoryController extends Controller
 {
     /**
@@ -36,7 +36,7 @@ class CategoryController extends Controller
     {
         return view('categories.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,27 +50,27 @@ class CategoryController extends Controller
             'Category_description' => 'required',
             'Category_image_url' => 'required',
         ]);
-    
-        
-        
+
+
+
         if($request->hasfile('Category_image_url'))
         {
-            $name = $request->Category_name.time().'.'.$request->Category_image_url->extension();
-            $request->Category_image_url->storeAs('files',$name,'public');        
+            $name = $request->Category_name.'-'.uniqid().'-'.'.'.$request->Category_image_url->extension();
+            $request->Category_image_url->storeAs('files',$name,'public');
         }
-      
+
         $varCategory = new Category([
             'Category_name' => $request->Category_name,
             'Category_description' => $request->Category_description,
             'Category_image_url' =>  $name,
          ]);
          $varCategory->save();
-         
-        
+
+
         return redirect()->route('categories.index')
                         ->with('success','Category created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     {
         return view('categories.show',compact('category'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,7 +92,7 @@ class CategoryController extends Controller
     {
         return view('categories.edit',compact('category'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -110,7 +110,7 @@ class CategoryController extends Controller
         if($request->Category_image_url)
         {
             $extension = $request->Category_image_url->getClientOriginalExtension();
-            $name = $request->Category_name.time().'.'.$extension;
+            $name = $request->Category_name.'-'.uniqid().'-'.$extension;
             if($category->Category_image_url)
             {
                     Storage::delete('/public/files/'.$category->Category_image_url);
@@ -127,11 +127,11 @@ class CategoryController extends Controller
 
 
 
-        
+
         return redirect()->route('categories.index')
                         ->with('success','Category updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -155,6 +155,6 @@ class CategoryController extends Controller
             return redirect()->route('categories.index')
                         ->with('success','Category is Inactive now');
         }
-        
+
     }
 }

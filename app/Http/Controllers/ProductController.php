@@ -1,14 +1,14 @@
 <?php
-    
+
 namespace App\Http\Controllers;
-    
+
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-    
+
 class ProductController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +32,7 @@ class ProductController extends Controller
         return view('products.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +43,7 @@ class ProductController extends Controller
         $subcategories = SubCategory::all();
         return view('products.create',compact('subcategories'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -61,45 +61,45 @@ class ProductController extends Controller
             'Product_color' => 'required',
             'Product_prize' => 'required',
         ]);
-    
+
         $data=$request->all();
         if($request->hasfile('Product_image_url1'))
         {
-            $name1 = $request->Product_name.'_1_'.time().'.'.$request->Product_image_url1->extension();
+            $name1 = $request->Product_name.'-1-'.'-'.uniqid().'-'.$request->Product_image_url1->extension();
             $request->Product_image_url1->storeAs('files',$name1,'public');
-            $data['Product_image_url1']=$name1;   
+            $data['Product_image_url1']=$name1;
         }
         if($request->hasfile('Product_image_url2'))
         {
-            $name2 = $request->Product_name.'_2_'.time().'.'.$request->Product_image_url2->extension();
+            $name2 = $request->Product_name.'-2-'.'-'.uniqid().'-'.$request->Product_image_url2->extension();
             $request->Product_image_url2->storeAs('files',$name2,'public');
-            $data['Product_image_url2']=$name2;      
+            $data['Product_image_url2']=$name2;
         }
         if($request->hasfile('Product_image_url3'))
         {
-            $name3 = $request->Product_name.'_3_'.time().'.'.$request->Product_image_url3->extension();
+            $name3 = $request->Product_name.'-3-'.'-'.uniqid().'-'.$request->Product_image_url3->extension();
             $request->Product_image_url3->storeAs('files',$name3,'public');
-            $data['Product_image_url3']=$name3;       
+            $data['Product_image_url3']=$name3;
         }
-      
+
         if($request->hasfile('Product_image_url4'))
         {
-            $name4 = $request->Product_name.'_4_'.time().'.'.$request->Product_image_url4->extension();
+            $name4 = $request->Product_name.'-4-'.'-'.uniqid().'-'.$request->Product_image_url4->extension();
             $request->Product_image_url4->storeAs('files',$name4,'public');
-            $data['Product_image_url4']=$name4;       
+            $data['Product_image_url4']=$name4;
         }
         if($request->hasfile('Product_image_url5'))
         {
-            $name5 = $request->Product_name.'_5_'.time().'.'.$request->Product_image_url5->extension();
+            $name5 = $request->Product_name.'-5-'.'-'.uniqid().'-'.$request->Product_image_url5->extension();
             $request->Product_image_url5->storeAs('files',$name5,'public');
-            $data['Product_image_url5']=$name5;       
+            $data['Product_image_url5']=$name5;
         }
-        
+
         Product::create($data);
         return redirect()->route('products.index')
                         ->with('success','Product created successfully.');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -110,7 +110,7 @@ class ProductController extends Controller
     {
         return view('products.show',compact('product'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -123,7 +123,7 @@ class ProductController extends Controller
         $product_images = ['Product_image_url1','Product_image_url2','Product_image_url3','Product_image_url4','Product_image_url5'];
         return view('products.edit',compact('product','subcategories','product_images'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -142,7 +142,7 @@ class ProductController extends Controller
             'Product_color' => 'required',
             'Product_prize' => 'required',
         ]);
-        
+
         //$product->update($request->all());
         $data=$request->all();
         //
@@ -185,7 +185,7 @@ class ProductController extends Controller
             $data['Product_image_url2']=$name2;
         }
         else
-        {   
+        {
             if($request->Product_image_url22)
             {
                 Storage::delete('/public/files/'.$product->Product_image_url2);
@@ -196,7 +196,7 @@ class ProductController extends Controller
                 $name2 = $product->Product_image_url2;
                 $data['Product_image_url2']=$name2;
             }
-            
+
         }
         //
         //Image3
@@ -223,7 +223,7 @@ class ProductController extends Controller
                 $name3 = $product->Product_image_url3;
                 $data['Product_image_url3']=$name3;
             }
-            
+
         }
         //
         //Image4
@@ -250,7 +250,7 @@ class ProductController extends Controller
                  $name4 = $product->Product_image_url4;
                 $data['Product_image_url4']=$name4;
             }
-           
+
         }
         //
         //Image5
@@ -277,17 +277,17 @@ class ProductController extends Controller
                 $name5 = $product->Product_image_url5;
                 $data['Product_image_url5']=$name5;
             }
-            
+
         }
-        
-        
+
+
         $product->update($data);
 
 
         return redirect()->route('products.index')
                         ->with('success','Product updated successfully');
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *

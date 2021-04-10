@@ -53,7 +53,7 @@ class SubCategoryController extends Controller
 
         if($request->hasfile('Subcategory_image_url'))
         {
-            $name = $request->Subcategory_name.time().'.'.$request->Subcategory_image_url->extension();
+            $name = $request->Subcategory_name.'-'.uniqid().'-'.'.'.$request->Subcategory_image_url->extension();
             $request->Subcategory_image_url->storeAs('files',$name,'public');        
         }
       
@@ -111,7 +111,7 @@ class SubCategoryController extends Controller
         if($request->Subcategory_image_url)
         {
             $extension = $request->Subcategory_image_url->getClientOriginalExtension();
-            $name = $request->Subcategory_name.time().'.'.$extension;
+            $name = $request->Subcategory_name.'-'.uniqid().'-'.'.'.$extension;
             if($subcategory->Subcategory_image_url)
             {
                     Storage::delete('/public/files/'.$subcategory->Subcategory_image_url);
