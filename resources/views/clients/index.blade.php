@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>clients</h2>
+                <h2>Client Details</h2>
             </div>
             <div class="pull-right">
             </div>
@@ -16,13 +16,22 @@
     
 
 
-    <table class="table table-bordered">
-        <tr>
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+<thead>
+                    <tr>
             <th>No</th>
             <th>Name</th>
             <th>Shop Name</th>
+            <th>Mobile number</th>
+            <th>Email address</th>
+            <th>GST Number</th>
+            <th>Shop Address</th>
+            <th>Activity Status</th>
+            
+            
             <th width="280px">Action</th>
         </tr>
+        </thead>
 	    @foreach ($clients as $owner)
 	    <tr>
 	        <td>{{ ++$i }}</td>
@@ -42,12 +51,14 @@
             </td>
 	        
 	        <td>
-                <form action="{{ route('clients.destroy',$owner->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('clients.show',$owner->id) }}">Show</a>
                     <a class="btn btn-primary" href="{{ route('clients.edit',$owner->id) }}">Edit</a>
 
                     @csrf
-                </form>
+
+                    {!! Form::open(['method' => 'DELETE','route' => ['clients.destroy', $owner->id],'style'=>'display:inline']) !!}
+            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+        {!! Form::close() !!}
 	        </td>
 	    </tr>
 	    @endforeach

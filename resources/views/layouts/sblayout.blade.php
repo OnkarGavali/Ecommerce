@@ -79,7 +79,7 @@
                                 Products
                             </a>
 
-                            <a class="nav-link" href="{{ route('clients') }}">
+                            <a class="nav-link" href="{{ route('clients.index') }}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Clients
                             </a>

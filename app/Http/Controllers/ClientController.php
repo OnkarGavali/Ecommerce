@@ -33,7 +33,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view("AdminCreateUser"); 
+        return view("clients/create"); 
     }
 
     /**
@@ -74,7 +74,9 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        //
+        $ClientDetails = User::find($id); 
+        // return $ClientDetails; 
+        return view("clients/show", compact('ClientDetails')); 
     }
 
     /**
@@ -85,7 +87,9 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ClientDetails = User::find($id); 
+        // return $ClientDetails; 
+        return view("clients/edit", compact('ClientDetails')); 
     }
 
     /**
@@ -97,7 +101,22 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'shop_name' => 'required',
+            'email' => 'required|email',
+            'mobile_no' => 'required',
+            'gst_no' => 'required',
+            'shop_address'=> 'required',
+            'shop_pincode'=> 'required'
+        ]);
+
+        $client = User::find($id); 
+    
+        $client->update($request->all());
+    
+        return redirect()->route('clients.index')
+                        ->with('success','Client updated successfully');
     }
 
     /**
@@ -108,6 +127,8 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table("users")->where('id',$id)->delete();
+        return redirect()->route('clients.index')
+                        ->with('success','Client deleted successfully');
     }
 }
