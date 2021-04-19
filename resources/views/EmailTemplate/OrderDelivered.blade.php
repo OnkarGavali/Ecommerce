@@ -8,13 +8,21 @@
   <title>TrackIt</title>
 </head>
 
-<h1> Accepted! </h1>
+<h1> Out for Delivery! </h1>
 
- Your order with e-commerce app has been delivered to your address, Please verify the order
+
+<p>Total Products Being Dispatched : {{$OrdersInfo->Order_product_quantity}}</p>
+
+<p>
+Complete costing : {{$OrdersInfo->Order_total_cost}}
+</p>
+
+<p>
+ Your order with e-commerce app has been delivered to your address, Please verify the order</p><p>
  
- Please keep checking your account for further updates
+ Please keep checking your account for further updates</p><p>
  
- This is a system generated email, Please do not reply 
+ This is a system generated email, Please do not reply </p><p>
 
 
 </body>

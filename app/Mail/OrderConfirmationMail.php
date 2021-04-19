@@ -11,14 +11,18 @@ class OrderConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $OrdersInfo;
+    public $mail; 
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+    public function __construct($OrdersInfo)
+    {    
+        $this->OrdersInfo = $OrdersInfo; 
+        }
 
     /**
      * Build the message.
@@ -26,9 +30,7 @@ class OrderConfirmationMail extends Mailable
      * @return $this
      */
     public function build()
-    {
-        return $this
-                ->subject("Order status from E-commerce application")
-                ->view('EmailTemplate/OrderAccepted');
-}
+    { 
+        return $this->from('john@webslesson.info')->subject("Order has been accepted")->view('EmailTemplate/OrderAccepted');
+    }
 }

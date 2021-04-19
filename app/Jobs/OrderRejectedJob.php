@@ -3,19 +3,21 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\OrderConfirmationMail;
+
+use App\Mail\OrderRejectedMail;
 use Illuminate\Support\Facades\Mail;
 
-class OrderConfirmationJob implements ShouldQueue
+class OrderRejectedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $mail;
-    public $OrdersInfo; 
+    public $OrdersInfo;
     /**
      * Create a new job instance.
      *
@@ -24,7 +26,8 @@ class OrderConfirmationJob implements ShouldQueue
     public function __construct($mail, $OrdersInfo)
     {
         $this->mail = $mail;    
-        $this->OrdersInfo = $OrdersInfo;    
+        $this->OrdersInfo = $OrdersInfo; 
+        echo $OrdersInfo; 
     }
 
     /** 
@@ -34,6 +37,9 @@ class OrderConfirmationJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to("$this->mail")->send(new OrderConfirmationMail($this->OrdersInfo));
+        echo "dollu";
+        echo $this->OrdersInfo; 
+        echo "hi"; 
+        Mail::to("$this->mail")->send(new OrderRejectedMail($this->OrdersInfo));
     }
 }

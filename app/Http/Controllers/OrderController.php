@@ -11,6 +11,10 @@ use App\Mail\OrderConfirmationMail;
 use App\Mail\OrderDeliveredMail; 
 use App\Mail\OrderRejectedMail; 
 use App\Jobs\OrderConfirmationjob; 
+use App\Jobs\OrderDeliveredjob; 
+use App\Jobs\ActivateAccountjob; 
+use App\Jobs\OrderRejectedjob;
+
 class OrderController extends Controller
 {
     /**
@@ -87,7 +91,11 @@ class OrderController extends Controller
         $mail=$user->email;
         // echo "Accepted  "; 
         // return $mail; 
-        $this->dispatch(new OrderConfirmationjob($mail));
+        $key = "ACCEPTORDER";
+//        Mail::to("$this->mail")->send(new OrderConfirmationMail($this->OrdersInfo));
+      //  Mail::to($mail)->send(new OrderConfirmationMail($OrdersInfo));
+        //return $OrdersInfo->Order_product_quantity;
+        $this->dispatch(new OrderConfirmationJob($mail, $OrdersInfo));
 
       //  Mail::to("$mail")->send(new OrderConfirmationMail());
 
@@ -109,12 +117,15 @@ class OrderController extends Controller
         $user = User::find($OrdersInfo->Order_user_id); 
 
         $mail=$user->email;
-        echo "Delivered"; 
+//        echo "Delivered"; 
 
-        
-        return $mail; 
+        $key = "DELIVERORDER"; 
+   //     $this->dispatch(new OrderDeliveredjob($mail, $key, $OrdersInfo));
+        $this->dispatch(new OrderDeliveredjob($mail, $OrdersInfo));
+
+      //  return $mail; 
         //data = $data;
-        Mail::to("$mail")->send(new OrderDeliveredMail());
+    //    Mail::to("$mail")->send(new OrderDeliveredMail());
 
 
         return redirect("orders");
@@ -149,21 +160,14 @@ class OrderController extends Controller
 
         $mail=$user->email;
         
-        return $mail; 
+     //   return $mail; 
         $key = "REJECTED";
-        echo "Rejected"; 
-
+        //return $key;
+ //       return $OrdersInfo;
         //$this->mailSubject=$mailSubject;
 
-        Mail::to("$mail")->send(new OrderRejectedMail());
+        $this->dispatch(new OrderRejectedjob($mail, $OrdersInfo));
 
         return redirect("orders");
-    }
-    public function send($mail,$key)
-    {
-      $this->$mail = $mail;
-      $this->$key = $key; 
-      Mail::to("$mail")->send(new OrderConfirmationMail($key));
-      return redirect("orders"); 
     }
 }

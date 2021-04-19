@@ -11,14 +11,17 @@ class OrderRejectedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $OrdersInfo;
+    public $mail;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        //
+    
+    public function __construct($OrdersInfo)
+    {    
+        $this->OrdersInfo = $OrdersInfo; 
     }
 
     /**
@@ -28,8 +31,7 @@ class OrderRejectedMail extends Mailable
      */
     public function build()
     {
-        return $this
-        ->subject("Order status from E-commerce application")
+        return $this->from('john@webslesson.info')->subject("Order has been rejected")
         ->view('EmailTemplate/OrderRejected');    
     }
 }

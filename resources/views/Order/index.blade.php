@@ -55,8 +55,11 @@
                 <form action="{{ route('orders.destroy',$order->Order_id) }}" method="POST">
                 @if($order->Order_status == 0)
                     <a class="btn btn-success" href="{{ route('orders.show',$order->Order_id) }}">Accept Order</a>
-                    <a class="btn btn-danger" href="{{ route('orders.destroy',$order->Order_id) }}">Reject Order</a>
-                @endif
+                    @csrf
+
+{!! Form::open(['method' => 'DELETE','route' => ['orders.destroy', $order->Order_id],'style'=>'display:inline']) !!}
+{!! Form::submit('Reject Order', ['class' => 'btn btn-danger']) !!}
+{!! Form::close() !!}                @endif
                 @if($order->Order_status == 1)
                 <a class="btn btn-primary" href="{{ route('orders.edit',$order->Order_id) }}">Mark as Delivered</a>
                 @endif
