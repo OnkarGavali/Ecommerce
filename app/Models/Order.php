@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    /*
+    0. Pending
+    1. Accepeted
+    2. Delivered
+    3. Rejected
+    */
     use HasFactory;
     protected $fillable = [
         'Order_user_id',

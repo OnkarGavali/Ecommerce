@@ -7,18 +7,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\ActivateAccountMail;
+use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
 
-class ActivateAccountJob implements ShouldQueue
+class OrderConfirmationJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $mail;
-
-
-
-
     /**
      * Create a new job instance.
      *
@@ -26,7 +22,7 @@ class ActivateAccountJob implements ShouldQueue
      */
     public function __construct($mail)
     {
-      $this->mail = $mail;
+        $this->mail = $mail;    
     }
 
     /**
@@ -35,7 +31,7 @@ class ActivateAccountJob implements ShouldQueue
      * @return void
      */
     public function handle()
-    { 
-         Mail::to("$this->mail")->send(new ActivateAccountMail());
+    {
+        Mail::to("$this->mail")->send(new OrderConfirmationMail());
     }
 }

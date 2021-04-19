@@ -83,6 +83,11 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Clients
                             </a>
+
+                            <a class="nav-link" href="{{ route('orders.index') }}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                Orders
+                            </a>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
