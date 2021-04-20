@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\BannerController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,3 +31,4 @@ Route::POST('loginapi', [LoginController::class, 'login']);
 Route::POST('PlaceOrder',[OrderController::class, 'PlaceOrder']);
 Route::get('ClientAllOrders',[OrderController::class, 'ClientAllOrders']);
 Route::POST('OrderDeatils',[OrderController::class, 'OrderDeatils']);
+Route::get('banners',[BannerController::class, 'index']);
