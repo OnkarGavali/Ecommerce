@@ -19,14 +19,14 @@ class OrderController extends Controller
     $validator = Validator::make($request->all(), [
         'order' =>'required'
     ]);
-
+$user = $request->user();
     if ($validator->fails()) {
         $responseArr['error'] = $validator->errors()->first();
         return response()->json($responseArr, 400);
     }
 
     $varOrder = new Order([
-              'Order_user_id'=>1,
+              'Order_user_id'=>$user->id,
               'Order_product_Quantity'=>count($request->order),
               'Order_total_cost'=>-1,
               'Order_status'=>0,
@@ -67,11 +67,11 @@ class OrderController extends Controller
       return response()->json(['code'=>200]);
   }
 
-  public function ClientAllOrders()
+  public function ClientAllOrders(Request $request)
   {
-
+    $user = $request->user();
     $Orders = DB::table('orders')
-    ->where('Order_user_id', '=', 1)
+    ->where('Order_user_id', '=', $user->id)
     ->orderBy('Order_id', 'desc')
     ->get()->toArray();
 

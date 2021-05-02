@@ -18,7 +18,8 @@ use App\Http\Controllers\Api\OrderController;
 */
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-
+    Route::get('ClientAllOrders',[OrderController::class, 'ClientAllOrders']);
+    Route::POST('PlaceOrder',[OrderController::class, 'PlaceOrder']);
 
 });
 
@@ -27,6 +28,6 @@ Route::get('AllProducts',[HomeController::class, 'AllProducts']);
 Route::POST('home/subcategory',[HomeController::class, 'HomePageSub']);
 Route::POST('home/product',[HomeController::class, 'HomePagePro']);
 Route::POST('loginapi', [LoginController::class, 'login']);
-Route::POST('PlaceOrder',[OrderController::class, 'PlaceOrder']);
-Route::get('ClientAllOrders',[OrderController::class, 'ClientAllOrders']);
+
+
 Route::POST('OrderDeatils',[OrderController::class, 'OrderDeatils']);
