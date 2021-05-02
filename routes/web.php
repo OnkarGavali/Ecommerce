@@ -13,6 +13,7 @@ use App\Http\Controllers\ListController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BannerController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('owners', OwnerController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('banners', BannerController::class);
 
     Route::get('lists', [DataController::class, 'CatList'])->name('lists.Category');
     Route::get('lists/{category}', [DataController::class, 'SubCatList'])->name('lists.SubCategory');
