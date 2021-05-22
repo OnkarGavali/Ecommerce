@@ -18,7 +18,7 @@ class ActivateAccountJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $mail;
-    public $key; 
+    public $password; 
 
 
 
@@ -28,12 +28,12 @@ class ActivateAccountJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($mail, $key)
+    public function __construct($mail, $password)
     {
       $this->mail = $mail;
-      $this->key = $key;
-      print_r("key"); 
-      print_r($key); 
+      $this->password = $password;
+      
+      
     }
 
     /**
@@ -44,7 +44,7 @@ class ActivateAccountJob implements ShouldQueue
     public function handle()
     { 
       
-         Mail::to("$this->mail")->send(new ActivateAccountMail());
+         Mail::to("$this->mail")->send(new ActivateAccountMail($this->password));
       
   }
 }

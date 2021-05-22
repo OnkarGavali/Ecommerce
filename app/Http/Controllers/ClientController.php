@@ -49,19 +49,26 @@ class ClientController extends Controller
             'shop_name' => 'required',
             'email' => 'required|email|unique:users,email',
             'mobile_no' => 'required',
-            'gst_no' => 'required',
+            'gst_no' => 'required|unique:users,gst_no',
             'shop_address'=> 'required',
             'shop_pincode'=> 'required'
         ]); 
             
 
         $input = $request->all();
-        $input['password'] = Hash::make('123456');
+        $$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 9; $i++) {
+            $randstring = $characters[rand(0, strlen($characters))];
+        }
+        
+        $input['password'] = Hash::make($randstring);
         $user = User::create($input);        
         
-        $msg="Congratulations! You have been registered successfully on E-Commerce App!! CLick on activate the account click on Forgot Your Password button on Website";
+       
         $mail=$request->email;
-        $this->dispatch(new ActivateAccountjob($mail));
+        $password=$randstring;
+        $this->dispatch(new ActivateAccountjob($mail,$password));
 
         return back()->with('success','Registered successfully');
     }

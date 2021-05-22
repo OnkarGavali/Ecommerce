@@ -8,9 +8,9 @@
                 <h2>Banners</h2>
             </div>
             <div class="pull-right">
-                @can('banners-create')
+                
                 <a class="btn btn-success" href="{{ route('banners.create') }}"> Create New Banners</a>
-                @endcan
+              
             </div>
         </div>
     </div>

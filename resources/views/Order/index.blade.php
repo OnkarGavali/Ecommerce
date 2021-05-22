@@ -9,9 +9,7 @@
             <div class="pull-left">
                 <h2>Orders</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('orders.create') }}"> Register new order</a>
-            </div>
+          
         </div>
     </div>
     
@@ -22,6 +20,7 @@
             <th>Shop Name</th>
             <th>Product Quantity</th>
             <th>Total Cost</th>
+            <th>Details</th>
             <th>Current Status</th>
             <th width="280px">Action</th>
         </tr>
@@ -32,6 +31,9 @@
 	        <td>{{ $order->shop_name }}</td>
 	        <td>{{ $order->Order_product_quantity }}</td>
 	        <td>{{ $order->Order_total_cost }}</td>
+            <td>
+            <a class="btn btn-warning" href="{{ route('orderdeatails.show',$order->Order_id) }}">View</a>
+            </td>
 	        <td>
             
             @if($order->Order_status == 0)

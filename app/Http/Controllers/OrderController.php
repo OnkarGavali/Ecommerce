@@ -43,7 +43,7 @@ class OrderController extends Controller
         $OrderInfo = DB::table("orders")
         ->join("users", "users.id", "orders.Order_user_id")
         ->get()->toArray(); 
-        return $OrderInfo;
+        
         return view("Order/Create", compact("OrderInfo")); 
     }
 

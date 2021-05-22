@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
 Route::get('home',[HomeController::class, 'HomePageCat']);
 Route::get('AllProducts',[HomeController::class, 'AllProducts']);
+Route::POST('selectedProduct',[HomeController::class, 'selectedProduct']);
 Route::POST('home/subcategory',[HomeController::class, 'HomePageSub']);
 Route::POST('home/product',[HomeController::class, 'HomePagePro']);
 Route::POST('loginapi', [LoginController::class, 'login']);

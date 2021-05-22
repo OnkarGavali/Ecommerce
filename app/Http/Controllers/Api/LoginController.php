@@ -11,7 +11,8 @@ use Validator;
 
 class LoginController extends Controller
 {
-    function login(Request $request) {
+    function login(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -81,6 +82,6 @@ class LoginController extends Controller
             }
             return "nooo";
     }
-   
+
 
 }

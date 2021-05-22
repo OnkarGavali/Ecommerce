@@ -74,4 +74,26 @@ class HomeController extends Controller
         return response()->json(['AllProductList'=>$products,
         'code'=>200]);
     }
+
+    public function selectedProduct(Request $request)
+    {
+      $validator = Validator::make($request->all(), [
+          'Product_subcategory_id' =>'required'
+      ]);
+
+      if ($validator->fails()) {
+          $responseArr['error'] = $validator->errors()->first();
+          return response()->json($responseArr, 400);
+      }
+
+      $products = DB::table('products')
+      ->where([['Product_subcategory_id','=',$request->Product_subcategory_id],
+      ['Product_status', '=', 1]])
+      ->orderBy('Product_id', 'desc')
+      ->get()->toArray();
+
+
+      return response()->json(['ProductList'=>$products,
+      'code'=>200]);
+    }
 }

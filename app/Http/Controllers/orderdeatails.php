@@ -1,11 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB; 
-class BannerController extends Controller
+use DB;
+use App\Models\User; 
+use App\Models\Order; 
+use App\Models\OrderedProducts; 
+use Mail;
+use App\Mail\OrderConfirmationMail; 
+use App\Mail\OrderDeliveredMail; 
+use App\Mail\OrderRejectedMail; 
+use App\Jobs\OrderConfirmationjob; 
+use App\Jobs\OrderDeliveredjob; 
+use App\Jobs\ActivateAccountjob; 
+use App\Jobs\OrderRejectedjob;
+
+
+class orderdeatails extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,16 +26,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banners = DB::table("banners")->get()->toArray(); 
-        $bannersCount = DB::table("banners")->count(); 
-        $bannersInfo = [
-            $banners, $bannersCount
-        ]; 
-
-        return response()->json(['banners'=>$banners,
-        'bannersCount'=>$bannersCount,
-        'code'=>200]);
-        return response($bannersInfo, 200); 
+        //
     }
 
     /**
@@ -55,7 +58,13 @@ class BannerController extends Controller
      */
     public function show($id)
     {
-        //
+       
+        $OrdersInfo = DB::table('ordered_products')
+        ->where([['Ordered_product_order_id', '=',$id]])
+        ->join('products','products.Product_id','ordered_products.Ordered_product_product_id')
+        ->get()->toArray();
+        $i=0;
+        return view('Order.orderlist',compact('OrdersInfo','i'));
     }
 
     /**

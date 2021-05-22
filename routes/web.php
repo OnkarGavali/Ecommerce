@@ -14,6 +14,8 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\BannerController; 
+use App\Http\Controllers\orderdeatails;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,16 +27,14 @@ use App\Http\Controllers\BannerController;
 |
 */
   
-Route::get('/', function () {
-    return view('welcome');
-});
+
   
 Auth::routes();
   
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+
   
 Route::group(['middleware' => ['auth']], function() {
-    
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::resource('roles', RoleController::class);
     
     Route::resource('users', UserController::class);
@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('owners', OwnerController::class);
     Route::resource('clients', ClientController::class);
     Route::resource('orders', OrderController::class);
+    Route::resource('orderdeatails', orderdeatails::class);
     Route::resource('banners', BannerController::class);
 
     Route::get('lists', [DataController::class, 'CatList'])->name('lists.Category');
