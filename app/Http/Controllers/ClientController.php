@@ -56,7 +56,7 @@ class ClientController extends Controller
             
 
         $input = $request->all();
-        $$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $randstring = '';
         for ($i = 0; $i < 9; $i++) {
             $randstring = $characters[rand(0, strlen($characters))];

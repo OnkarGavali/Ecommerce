@@ -30,6 +30,7 @@ class ProductController extends Controller
     {
         $products = Product::All();
         $i=0;
+        
         return view('products.index',compact('products','i'));
     }
 

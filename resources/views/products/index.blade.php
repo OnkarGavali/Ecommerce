@@ -76,6 +76,6 @@
     </table>
 
 
-    {!! $products->links() !!}
+    
 </div>
 @endsection
