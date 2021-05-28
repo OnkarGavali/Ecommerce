@@ -66,32 +66,32 @@ class ProductController extends Controller
         $data=$request->all();
         if($request->hasfile('Product_image_url1'))
         {
-            $name1 = $request->Product_name.'-1-'.'-'.uniqid().'-'.$request->Product_image_url1->extension();
+            $name1 = uniqid().uniqid().$request->Product_image_url1->extension();
             $request->Product_image_url1->storeAs('files',$name1,'public');
             $data['Product_image_url1']=$name1;
         }
         if($request->hasfile('Product_image_url2'))
         {
-            $name2 = $request->Product_name.'-2-'.'-'.uniqid().'-'.$request->Product_image_url2->extension();
+            $name2 = uniqid().uniqid().$request->Product_image_url2->extension();
             $request->Product_image_url2->storeAs('files',$name2,'public');
             $data['Product_image_url2']=$name2;
         }
         if($request->hasfile('Product_image_url3'))
         {
-            $name3 = $request->Product_name.'-3-'.'-'.uniqid().'-'.$request->Product_image_url3->extension();
+            $name3 = uniqid().uniqid().$request->Product_image_url3->extension();
             $request->Product_image_url3->storeAs('files',$name3,'public');
             $data['Product_image_url3']=$name3;
         }
 
         if($request->hasfile('Product_image_url4'))
         {
-            $name4 = $request->Product_name.'-4-'.'-'.uniqid().'-'.$request->Product_image_url4->extension();
+            $name4 = uniqid().uniqid().$request->Product_image_url4->extension();
             $request->Product_image_url4->storeAs('files',$name4,'public');
             $data['Product_image_url4']=$name4;
         }
         if($request->hasfile('Product_image_url5'))
         {
-            $name5 = $request->Product_name.'-5-'.'-'.uniqid().'-'.$request->Product_image_url5->extension();
+            $name5 = uniqid().uniqid().$request->Product_image_url5->extension();
             $request->Product_image_url5->storeAs('files',$name5,'public');
             $data['Product_image_url5']=$name5;
         }
@@ -151,7 +151,7 @@ class ProductController extends Controller
         if($request->Product_image_url1)
         {
             $extension = $request->Product_image_url1->getClientOriginalExtension();
-            $name1 = $request->Product_name.'_1_'.time().'.'.$extension;
+            $name1 = uniqid().uniqid().$extension;
             if($product->Product_image_url1)
             {
                     Storage::delete('/public/files/'.$product->Product_image_url1);
@@ -177,7 +177,7 @@ class ProductController extends Controller
         if($request->Product_image_url2)
         {
             $extension = $request->Product_image_url2->getClientOriginalExtension();
-            $name2 = $request->Product_name.'_2_'.time().'.'.$extension;
+            $name2 = uniqid().uniqid().$extension;
             if($product->Product_image_url2)
             {
                     Storage::delete('/public/files/'.$product->Product_image_url2);
@@ -204,7 +204,7 @@ class ProductController extends Controller
         if($request->Product_image_url3)
         {
             $extension = $request->Product_image_url3->getClientOriginalExtension();
-            $name3 = $request->Product_name.'_3_'.time().'.'.$extension;
+            $name3 = uniqid().uniqid().$extension;
             if($product->Product_image_url3)
             {
                     Storage::delete('/public/files/'.$product->Product_image_url3);
@@ -231,7 +231,7 @@ class ProductController extends Controller
         if($request->Product_image_url4)
         {
             $extension = $request->Product_image_url4->getClientOriginalExtension();
-            $name4 = $request->Product_name.'_4_'.time().'.'.$extension;
+            $name4 = uniqid().uniqid().$extension;
             if($product->Product_image_url4)
             {
                     Storage::delete('/public/files/'.$product->Product_image_url4);
@@ -258,7 +258,7 @@ class ProductController extends Controller
         if($request->Product_image_url5)
         {
             $extension = $request->Product_image_url5->getClientOriginalExtension();
-            $name5 = $request->Product_name.'_5_'.time().'.'.$extension;
+            $name5 = uniqid().uniqid().$extension;
             if($product->Product_image_url5)
             {
                     Storage::delete('/public/files/'.$product->Product_image_url5);

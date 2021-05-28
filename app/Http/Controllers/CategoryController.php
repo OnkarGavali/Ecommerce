@@ -55,7 +55,7 @@ class CategoryController extends Controller
 
         if($request->hasfile('Category_image_url'))
         {
-            $name = $request->Category_name.'-'.uniqid().'-'.'.'.$request->Category_image_url->extension();
+            $name =uniqid().uniqid().$request->Category_image_url->extension();
             $request->Category_image_url->storeAs('files',$name,'public');
         }
 
@@ -110,7 +110,7 @@ class CategoryController extends Controller
         if($request->Category_image_url)
         {
             $extension = $request->Category_image_url->getClientOriginalExtension();
-            $name = $request->Category_name.'-'.uniqid().'-'.$extension;
+            $name = uniqid().uniqid().$extension;
             if($category->Category_image_url)
             {
                     Storage::delete('/public/files/'.$category->Category_image_url);

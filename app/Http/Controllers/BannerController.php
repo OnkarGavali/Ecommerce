@@ -48,7 +48,7 @@ class BannerController extends Controller
         $data=$request->all();
         if($request->hasfile('Banner_Image_Path'))
         {
-            $name1 = $request->Banner_title.'-banner-'.''.uniqid().'.'.$request->Banner_Image_Path->extension();
+            $name1 = uniqid().uniqid().$request->Banner_Image_Path->extension();
             $request->Banner_Image_Path->storeAs('files',$name1,'public');
             $data['Banner_Image_Path']=$name1;
             Banner::Create($data);
